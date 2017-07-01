@@ -13,9 +13,11 @@ Plug 'Raimondi/delimitMate' " auto-close parens/braces/etc.
 Plug 'scrooloose/nerdcommenter' " Commenting features
 Plug 'altercation/vim-colors-solarized' " Solarized colorscheme
 Plug 'vim-airline/vim-airline' " airline bar
+Plug 'vim-airline/vim-airline-themes' " themes for airline
 Plug 'ervandew/supertab' " tab completion
 
 " LANGUAGES "
+"Plug 'artur-shaik/vim-javacomplete2' " Java autocomplete
 Plug 'vim-jp/vim-cpp' " c/c++
 Plug 'elzr/vim-json' " JSON
 Plug 'pangloss/vim-javascript' " javascript
@@ -28,21 +30,29 @@ call plug#end() " Initialize plugin system
 filetype plugin indent on " check filetype
 syntax enable " enable syntax processing
 
+" PLUGIN CONFIGURATIONS "
+" airline
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '>'
+
+let g:airline#extensions#tabline#enabled = 1 " starts with tabline
+
+" ITERM PROFILE SPECIFICITIES "
 let iterm_profile = $ITERM_PROFILE
 if iterm_profile == "Solarized Dark"
   set background=dark
   colorscheme solarized
+  let g:airline_theme='solarized'
+  let g:airline_solarized_bg='dark'
 elseif iterm_profile == "Solarized Light"
   set background=light
   colorscheme solarized
+  let g:airline_theme='solarized'
+  let g:airline_solarized_bg='light'
 else
   colorscheme torte
   highlight LineNr ctermfg=grey
 endif
-
-nnoremap <F5> :GundoToggle<CR>
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <F8> :Goyo<CR>
 
 set shiftwidth=2 " number of spaces for an indentation level
 set tabstop=2 " number of visual spaces per TAB
@@ -65,6 +75,7 @@ set ruler " show line/column in bottom right
 set number " show line numbers
 set showcmd " show command in the bottom bar
 set cursorline " highlight current line
+set laststatus=2 " display the status line at all times
 
 set wildmenu " visual autocomplete for command menu
 set lazyredraw " redraw only when we need to
@@ -93,6 +104,11 @@ inoremap jj <Esc>`^
 nmap <leader>l :set list!<CR>
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
+
+" F KEY BINDINGS "
+nnoremap <F5> :GundoToggle<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <F8> :Goyo<CR>
 
 " FUNCTIONS "
 " executes some command without changing cursor or search pattern
